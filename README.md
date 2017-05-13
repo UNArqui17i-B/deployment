@@ -17,11 +17,11 @@ file:
 ```
 
 ## Shared machines 
-| Node1           | Node2           | Node3   | Node4     |
-| --------------- | --------------- | ------- | --------- |
-| main            | main            | user    | main      | 
-| file            | user            | file    | balancer  |
-| fileDB - master | userDB - master | userDB  | userDB    | 
-| fileDB          | userDB          | fileDB  | fileDB    |
-| userDB          | fileDB          |         |           |
+| Node1    | Node2           | Node3           | Node4   |
+| -------- | --------------- | --------------- | ------- |
+| main     | main            | main            | user    | 
+| balancer | file            | user            | file    |
+| userDB   | fileDB - master | userDB - master | userDB  |
+| fileDB   | fileDB          | userDB          | fileDB  |
+|          | userDB          | fileDB          |         |
 
