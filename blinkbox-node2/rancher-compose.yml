@@ -1,0 +1,14 @@
+couch_db:
+  scale: 1
+auth_ms:
+  scale: 1
+update_ms:
+  scale: 1
+delete_ms:
+  scale: 1
+upload_ms:
+  scale: 1
+file_access_ms:
+  scale: 1
+api_gateway:
+  scale: 1
