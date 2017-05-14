@@ -101,7 +101,7 @@ services:
       - files-db
 
   api-gateway:
-    build: .
+    image: blinkbox/api-gateway
     environment:
       USER_PORT: '4000'
       USER_HOST: 'user-ms'
