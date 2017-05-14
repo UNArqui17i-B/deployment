@@ -1,0 +1,49 @@
+users-db:
+  scale: 3
+
+files-db:
+  scale: 3
+
+user-ms:
+  scale: 2
+
+auth-ms:
+  scale: 3
+
+notification-ms:
+  scale: 2
+
+update-ms:
+  scale: 2
+
+delete-ms:
+  scale: 2
+
+upload-ms:
+  scale: 2
+
+file-access-ms:
+  scale: 2
+
+api-gateway:
+  scale: 3
+
+frontend-ms:
+  scale: 3
+
+server-lb:
+  scale: 1
+  lb-config:
+    certs: []
+    port-rules:
+    - priority: 1
+      protocol: http
+      service: frontend-ms
+      source-port: 80
+      target-port: 85
+  health-check:
+    response-timeout: 2000
+    healthy-threshold: 2
+    port: 42
+    unhealthy-threshold: 3
+    interval: 2000
