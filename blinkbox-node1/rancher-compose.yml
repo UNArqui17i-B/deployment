@@ -5,50 +5,111 @@ bank-lb:
   lb-config:
     certs: []
     port-rules:
+    #Front end
+    - protocol: http
+      service: frontend-ms
+      source-port: 80
+      target-port: 85
+    - protocol: http
+      service: frontend-ms-2
+      source-port: 80
+      target-port: 86
+    - protocol: http
+      service: frontend-ms-3
+      source-port: 80
+      target-port: 87
 
-      #File access services
-      - protocol: http
-        service: file-access-ms-2
-        source-port: 4025
-        target-port: 4026
+    # Api Gateway
+    - protocol: http
+      service: api-gateway
+      source-port: 5000
+      target-port: 5001
+    - protocol: http
+      service: api-gateway-2
+      source-port: 5000
+      target-port: 5002
+    - protocol: http
+      service: api-gateway-3
+      source-port: 5000
+      target-port: 5003
 
-      - protocol: http
-        service: file-access-ms-4
-        source-port: 4025
-        target-port: 4027
+    # Authentication
+    - protocol: http
+      service: auth-ms
+      source-port: 4005
+      target-port: 4006
+    - protocol: http
+      service: auth-ms-2
+      source-port: 4005
+      target-port: 4007
+    - protocol: http
+      service: auth-ms-3
+      source-port: 4005
+      target-port: 4008
 
-      # Upload Services
-      - source_port: 4015
-        target_port: 4016
-        service: upload-ms-2
-        protocol: http
+    # User
+    - protocol: http
+      service: user-ms
+      source-port: 4000
+      target-port: 4001
+    - protocol: http
+      service: user-ms-2
+      source-port: 4000
+      target-port: 4002
 
-      - source_port: 4015
-        target_port: 4017
-        service: upload-ms-4
-        protocol: http
+    # Notification
+    - protocol: http
+      service: notification-ms
+      source-port: 4010
+      target-port: 4011
+    - protocol: http
+      service: notification-ms-2
+      source-port: 4010
+      target-port: 4012
 
-      # Delete Services
-      - source_port: 4030
-        target_port: 4031
-        service: delete-ms-2
-        protocol: http
+    #File access services
+    - protocol: http
+      service: file-access-ms-2
+      source-port: 4025
+      target-port: 4026
 
-      - source_port: 4030
-        target_port: 4032
-        service: delete-ms-4
-        protocol: http
+    - protocol: http
+      service: file-access-ms-4
+      source-port: 4025
+      target-port: 4027
 
-      # Update Services
-      - source_port: 4020
-        target_port: 4021
-        service: update-ms-2
-        protocol: http
+    # Upload Services
+    - source_port: 4015
+      target_port: 4016
+      service: upload-ms-2
+      protocol: http
 
-      - source_port: 4020
-        target_port: 4022
-        service: update-ms-4
-        protocol: http
+    - source_port: 4015
+      target_port: 4017
+      service: upload-ms-4
+      protocol: http
+
+    # Delete Services
+    - source_port: 4030
+      target_port: 4031
+      service: delete-ms-2
+      protocol: http
+
+    - source_port: 4030
+      target_port: 4032
+      service: delete-ms-4
+      protocol: http
+
+    # Update Services
+    - source_port: 4020
+      target_port: 4021
+      service: update-ms-2
+      protocol: http
+
+    - source_port: 4020
+      target_port: 4022
+      service: update-ms-4
+      protocol: http
   health-check:
     response-timeout: 2000
     healthy-threshold: 2

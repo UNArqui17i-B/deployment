@@ -10,7 +10,7 @@ services:
       DB-URL: 'users-db-m'
       JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
     ports:
-      - '4005:4005'
+      - '4006:4006'
     links:
       - users-db-m
     labels:
@@ -34,9 +34,9 @@ services:
       ACCESS-PORT: '4025'
       ACCESS-HOST: 'file-access-ms'
     ports:
-      - '5000:5000'
+      - '5001:5001'
     links:
-      - auth-ms
+      - lb-bank
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node1
   frontend-ms:
@@ -88,7 +88,7 @@ services:
       DB-URL: 'users-db-m'
       JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
     ports:
-      - '4005:4005'
+      - '4007:4007'
     links:
       - users-db-m
     labels:
@@ -129,16 +129,16 @@ services:
       ACCESS-PORT: '4025'
       ACCESS-HOST: 'file-access-ms'
     ports:
-      - '5000:5000'
+      - '5002:5002'
     links:
-      - auth-ms
+      - lb-bank
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node2
 
   frontend-ms-2:
     image: blinkbox/frontend
     ports:
-      - "85:85"
+      - "86:86"
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node2
 
@@ -204,7 +204,7 @@ services:
       DB-URL: 'users-db-m'
       JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
     ports:
-      - '4005:4005'
+      - '4008:4008'
     links:
       - users-db-m
     labels:
@@ -228,31 +228,31 @@ services:
       ACCESS-PORT: '4025'
       ACCESS-HOST: 'file-access-ms'
     ports:
-      - '5000:5000'
+      - '5002:5002'
     links:
-      - auth-ms
+      - lb-bank
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node3
   frontend-ms-3:
     image: blinkbox/frontend
     ports:
-      - "85:85"
+      - "87:87"
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node3
 
-  user-ms-3:
+  user-ms:
     image: blinkbox/user-crud
     environment:
       DB_PORT: '5984'
       DB_URL: 'users-db-m'
     ports:
-      - '4000:4000'
+      - '4001:4001'
     links:
       - users-db-m
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node3
 
-  notification-ms-3:
+  notification-ms:
     image: blinkbox/notification
     environment:
       NAME: "Blinkbox Project"
@@ -261,7 +261,7 @@ services:
       EMAIL_SERVER: "smtp.gmail.com"
       PORT: '587'
     ports:
-      - '4010:4010'
+      - '4011:4011'
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node3
 
@@ -280,13 +280,13 @@ services:
   ########
   #Node 4
   ########
-  user-ms-4:
+  user-ms-2:
     image: blinkbox/user-crud
     environment:
       DB_PORT: '5984'
       DB_URL: 'users-db-m'
     ports:
-      - '4000:4000'
+      - '4002:4002'
     links:
       - users-db-m
     labels:
@@ -308,7 +308,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node4
 
-  notification-ms-4:
+  notification-ms-2:
     image: blinkbox/notification
     environment:
       NAME: "Blinkbox Project"
@@ -317,7 +317,7 @@ services:
       EMAIL_SERVER: "smtp.gmail.com"
       PORT: '587'
     ports:
-      - '4010:4010'
+      - '4012:4012'
     labels:
       io.rancher.scheduler.affinity:host_label: host_label=node4
 
