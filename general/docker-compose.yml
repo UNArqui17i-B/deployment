@@ -7,6 +7,7 @@ services:
       driver: 'none'
     ports:
       - '3000:5984'
+
   files-db:
       image: klaemo/couchdb:2.0-single
       restart: always
@@ -126,7 +127,19 @@ services:
       - delete-ms
       - upload-ms
       - file-access-ms
+
   frontend-ms:
     image: blinkbox/frontend
     ports:
       - '85:80'
+
+  server-lb:
+    image: rancher/lb-service-haproxy:v0.4.2
+    ports:
+      - '80:80'
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create-agent: 'true'
+    links:
+      - frontend-ms
+      - api-gateway
