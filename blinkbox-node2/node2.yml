@@ -95,3 +95,7 @@ services:
       - delete_ms
       - upload_ms
       - file_access_ms
+  frontend-ms:
+    image: blinkbox/frontend
+    ports:
+      - "85:85"

@@ -78,4 +78,4 @@ services:
       HOST_PORT: '4025'
       HOST_URL: '0.0.0.0'
     links:
-      - couch_db
+      - couch_db 

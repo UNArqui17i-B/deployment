@@ -52,3 +52,7 @@ services:
     labels:
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
+  frontend-ms:
+    image: blinkbox/frontend
+    ports:
+      - "85:85"
