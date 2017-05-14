@@ -154,12 +154,12 @@ services:
   file-access-ms-2:
     image: blinkbox/fileaccess
     ports:
-      - '4025:4025'
+      - '4026:4026'
     environment:
       DB_NAME: 'blinkbox_files'
       DB_URL: 'files-db-m'
       DB_PORT: '5984'
-      HOST_PORT: '4025'
+      HOST_PORT: '4026'
       HOST_URL: '0.0.0.0'
     links:
       - files-db-m
@@ -318,12 +318,12 @@ services:
   file-access-ms-4:
     image: blinkbox/fileaccess
     ports:
-      - '4025:4025'
+      - '4027:4027'
     environment:
       DB_NAME: 'blinkbox_files'
       DB_URL: 'files-db-m'
       DB_PORT: '5984'
-      HOST_PORT: '4025'
+      HOST_PORT: '4027'
       HOST_URL: '0.0.0.0'
     links:
       - files-db-m

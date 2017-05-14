@@ -5,11 +5,17 @@ bank-lb:
   lb-config:
     certs: []
     port-rules:
-    - priority: 1
-      protocol: http
-      service: frontend-ms
-      source-port: 80
-      target-port: 85
+
+      #File access services
+      - protocol: http
+        service: file-access-ms-2
+        source-port: 4025
+        target-port: 4026
+
+      - protocol: http
+        service: file-access-ms-4
+        source-port: 4025
+        target-port: 4027
   health-check:
     response-timeout: 2000
     healthy-threshold: 2
