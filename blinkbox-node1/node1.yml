@@ -45,6 +45,9 @@ services:
       - delete_ms
       - upload_ms
       - file_access_ms
+    labels:
+      io.rancher.scheduler.affinity: 'node1'
+      io.rancher.scheduler.affinity: 'node2'
   bank-lb:
     image: rancher/lb-service-haproxy:v0.4.2
     ports:
@@ -52,6 +55,7 @@ services:
     labels:
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
+      io.rancher.scheduler.affinity: 'node1'
   frontend-ms:
     image: blinkbox/frontend
     ports:
