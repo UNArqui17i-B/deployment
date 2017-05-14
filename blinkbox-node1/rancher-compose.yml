@@ -1,9 +1,5 @@
-couch-db:
-  scale: 1
 auth-ms:
-  scale: 1
-api-gateway:
-  scale: 1
+  scale: 2
 bank-lb:
   scale: 1
   lb-config:
