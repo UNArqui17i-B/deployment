@@ -4,3 +4,19 @@ auth_ms:
   scale: 1
 api_gateway:
   scale: 1
+bank-lb:
+  scale: 1
+  lb_config:
+    certs: []
+    port_rules:
+    - priority: 1
+      protocol: http
+      service: web-app
+      source_port: 80
+      target_port: 85
+  health_check:
+    response_timeout: 2000
+    healthy_threshold: 2
+    port: 42
+    unhealthy_threshold: 3
+    interval: 2000
