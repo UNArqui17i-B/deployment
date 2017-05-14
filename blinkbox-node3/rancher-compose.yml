@@ -1,0 +1,10 @@
+couch_db:
+  scale: 1
+auth_ms:
+  scale: 1
+user_ms:
+  scale: 1
+notification_ms:
+  scale: 1
+api_gateway:
+  scale: 1
