@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-mvn -f pom.xml package
-
 ./../rancher-compose --project-name blinkbox-node1 \
     --url http://10.0.0.4:8080/v1/projects/1a5 \
     --access-key 220DC56668EF08268E6E \
