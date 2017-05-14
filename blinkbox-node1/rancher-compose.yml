@@ -16,6 +16,39 @@ bank-lb:
         service: file-access-ms-4
         source-port: 4025
         target-port: 4027
+
+      # Upload Services
+      - source_port: 4015
+        target_port: 4016
+        service: upload-ms-2
+        protocol: http
+
+      - source_port: 4015
+        target_port: 4017
+        service: upload-ms-4
+        protocol: http
+
+      # Delete Services
+      - source_port: 4030
+        target_port: 4031
+        service: delete-ms-2
+        protocol: http
+
+      - source_port: 4030
+        target_port: 4032
+        service: delete-ms-4
+        protocol: http
+
+      # Update Services
+      - source_port: 4020
+        target_port: 4021
+        service: update-ms-2
+        protocol: http
+
+      - source_port: 4020
+        target_port: 4022
+        service: update-ms-4
+        protocol: http
   health-check:
     response-timeout: 2000
     healthy-threshold: 2
