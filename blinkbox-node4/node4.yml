@@ -1,81 +1,87 @@
 version: '2'
 services:
-  couch_db:
+  couch-db:
     image: klaemo/couchdb:2.0-single
     restart: always
     logging:
       driver: 'none'
     ports:
-      - '3000:5984'
-      - '3010:5984'
+      - '3004:5984'
+      - '3014:5984'
 
-  user_ms:
+  # User
+  user-ms:
     image: blinkbox/user-crud
     environment:
-      DB_PORT: '5984'
-      DB_URL: 'couch_db'
+      DB_PORT: '3000'
+      DB_URL: '10.0.0.2'
+      HOST_PORT: '4004'
     ports:
-      - '4000:4000'
+      - '4004:4004'
     links:
-      - couch_db
+      - users-db
 
-  notification_ms:
+  notification-ms:
     image: blinkbox/notification
     environment:
-      NAME: "Blinkbox Project"
-      USERNAME: "blinkboxunal@gmail.com"
-      PASSWORD: "bl1nkb0x"
-      EMAIL_SERVER: "smtp.gmail.com"
+      NAME: 'Blinkbox Project'
+      USERNAME: 'blinkboxunal@gmail.com'
+      PASSWORD: 'bl1nkb0x'
+      EMAIL_SERVER: 'smtp.gmail.com'
       PORT: '587'
+      HOST_PORT: '4014'
     ports:
-      - '4010:4010'
+      - '4014:4014'
 
-  update_ms:
+  # File
+  update-ms:
     image: blinkbox/update
     environment:
-      DB_PORT: '5984'
-      DB_URL: 'couch_db'
+      DB_PORT: '3010'
+      DB_URL: '10.0.0.2'
       SECRET_KEY_BASE: '88e17a0d8bc9aaff8b23b3a64921da46059b175d73966151dd10029934cde9d4fa645c55a2a8e71e4a23778e64ce408caf7c4e5ca7c163d3785c9363f1153e4d'
-    command: bundle exec rails s -e production -p 4020 -b '0.0.0.0'
+    command: bundle exec rails s -e production -p 4024 -b '0.0.0.0'
     volumes:
       - .:/update
     ports:
-      - '4020:4020'
+      - '4024:4024'
     links:
-      - couch_db
+      - couch-db
 
-  delete_ms:
+  delete-ms:
     image: blinkbox/delete
     environment:
-      HOST_PORT: '4030'
+      HOST_PORT: '4034'
       HOST_URL: '0.0.0.0'
-      DB_URL: 'couch_db'
+      DB_URL: '10.0.0.2'
       DB_PORT: '3010'
       DB_NAME: 'blinkbox_files'
     ports:
-      - '4030:4030'
+      - '4034:4034'
     links:
-      - couch_db
+      - couch-db
 
-  upload_ms:
+  upload-ms:
     image: blinkbox/upload
     environment:
-      DB_PORT: '5984'
-      DB_URL: 'couch_db'
+      HOST_PORT: '4019'
+      HOST_URL: '0.0.0.0'
+      DB_PORT: '3010'
+      DB_URL: '10.0.0.2'
     ports:
-      - '4015:4015'
+      - '4019:4019'
     links:
-      - couch_db
+      - couch-db
 
-  file_access_ms:
+  file-access-ms:
     image: blinkbox/fileaccess
     ports:
       - '4025:4025'
     environment:
       DB_NAME: 'blinkbox_files'
-      DB_URL: 'couch_db'
-      DB_PORT: '5984'
-      HOST_PORT: '4025'
+      DB_URL: '10.0.0.2'
+      DB_PORT: '3010'
+      HOST_PORT: '4029'
       HOST_URL: '0.0.0.0'
     links:
-      - couch_db 
+      - couch-db
