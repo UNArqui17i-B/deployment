@@ -5,7 +5,7 @@ services:
     lb-config:
       port-rules:
       # Front end
-      - service: blinkbox-node1/frontend-ms
+      - service: blinkbox-node1/frontend-ms-3
         source-port: 80
         target-port: 85
       # - protocol: http
