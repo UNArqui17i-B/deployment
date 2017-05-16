@@ -208,6 +208,7 @@ services:
     labels:
        io.rancher.container.agent.role: environment
        io.rancher.container.create-agent: 'true'
+       io.rancher.scheduler.affinity:host_label: host_label=node3
     links:
       - frontend-ms-3
       # - frontend-ms-2
