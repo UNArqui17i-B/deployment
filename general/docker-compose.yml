@@ -9,12 +9,12 @@ services:
       - '3000:5984'
 
   files-db:
-      image: klaemo/couchdb:2.0-single
-      restart: always
-      logging:
-        driver: 'none'
-      ports:
-        - '3010:5984'
+    image: klaemo/couchdb:2.0-single
+    restart: always
+    logging:
+      driver: 'none'
+    ports:
+      - '3010:5984'
 
   user-ms:
     image: blinkbox/user-crud
@@ -130,10 +130,19 @@ services:
 
   frontend-ms:
     image: blinkbox/frontend
+    environment:
+      BACK_PORT: '5000'
+      BACK_URL: 'api-gateway'
+      HOST_PORT: '5010'
+      HOST_URL: '0.0.0.0'
+      FILE_ACCESS: 'file-access-ms'
+      UPLOAD: 'upload-ms'
     ports:
-      - '85:80'
+      - '5010:5010'
     links:
-      - frontend-ms
+      - file-access-ms
+      - upload-ms
+      - api-gateway
 
   server-lb:
     image: rancher/lb-service-haproxy:v0.4.2
