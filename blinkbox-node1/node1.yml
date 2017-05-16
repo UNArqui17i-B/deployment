@@ -238,12 +238,12 @@ services:
    image: blinkbox/authentication
    environment:
      DB-PORT: '5984'
-     DB-URL: 'users-db-m'
+     DB-URL: 'users-db-1'
      JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
    ports:
      - '4008:4008'
    links:
-     - users-db-m
+     - users-db-1
    labels:
      io.rancher.scheduler.affinity:host_label: host_label=node3
 
@@ -281,11 +281,11 @@ services:
    image: blinkbox/user-crud
    environment:
      DB_PORT: '5984'
-     DB_URL: 'users-db-m'
+     DB_URL: 'users-db-1'
    ports:
      - '4001:4001'
    links:
-     - users-db-m
+     - users-db-1
    labels:
      io.rancher.scheduler.affinity:host_label: host_label=node3
 
@@ -321,11 +321,11 @@ services:
    image: blinkbox/user-crud
    environment:
      DB_PORT: '5984'
-     DB_URL: 'users-db-m'
+     DB_URL: 'users-db-1'
    ports:
      - '4002:4002'
    links:
-     - users-db-m
+     - users-db-1
    labels:
      io.rancher.scheduler.affinity:host_label: host_label=node4
 
@@ -362,13 +362,13 @@ services:
    environment:
      HOST_PORT: '4032'
      HOST_URL: '0.0.0.0'
-     DB_URL: 'files-db-m'
+     DB_URL: 'files-db-2'
      DB_PORT: '3010'
      DB_NAME: 'blinkbox_files'
    ports:
      - '4032:4032'
    links:
-     - files-db-m
+     - files-db-2
    labels:
      io.rancher.scheduler.affinity:host_label: host_label=node4
 
@@ -376,11 +376,11 @@ services:
    image: blinkbox/upload
    environment:
      DB_PORT: '5984'
-     DB_URL: 'files-db-m'
+     DB_URL: 'files-db-2'
    ports:
      - '4017:4017'
    links:
-     - files-db-m
+     - files-db-2
    labels:
      io.rancher.scheduler.affinity:host_label: host_label=node4
 
@@ -390,12 +390,12 @@ services:
      - '4027:4027'
    environment:
      DB_NAME: 'blinkbox_files'
-     DB_URL: 'files-db-m'
+     DB_URL: 'files-db-2'
      DB_PORT: '5984'
      HOST_PORT: '4027'
      HOST_URL: '0.0.0.0'
    links:
-     - files-db-m
+     - files-db-2
    labels:
      io.rancher.scheduler.affinity:host_label: host_label=node4
 
