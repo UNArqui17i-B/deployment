@@ -24,7 +24,6 @@ file-db: 3010
 | main      | main             | main             | user    | 
 | server-lb | file             | user             | file    |
 | user-db   | file-db - master | user-db - master | user-db |
-| file-db   | * file-db        | * user-db        | file-db |
-|           | * user-db        | * file-db        |         |
+| file-db   |                  |                  | file-db |
 
 `*` In 6th delivery
