@@ -1,0 +1,119 @@
+version: '2'
+services:
+  auth-ms:
+    scale: 4
+
+  # blinkbox-lb:
+  #   scale: 1
+  #   lb-config:
+  #     port-rules:
+  #     # Front end
+  #     - service: blinkbox-node1/frontend-ms-3
+  #       source-port: 80
+  #       target-port: 85
+      # - protocol: http
+      #   service: blinkbox-node1/frontend-ms-2
+      #   source-port: 80
+      #   target-port: 86
+      # - protocol: http
+      #   service: blinkbox-node1/frontend-ms-3
+      #   source-port: 80
+      #   target-port: 87
+      #
+      # # Api Gateway
+      # - protocol: http
+      #   service: blinkbox-node1/api-gateway
+      #   source-port: 5000
+      #   target-port: 5001
+      # - protocol: http
+      #   service: blinkbox-node1/api-gateway-2
+      #   source-port: 5000
+      #   target-port: 5002
+      # - protocol: http
+      #   service: blinkbox-node1/api-gateway-3
+      #   source-port: 5000
+      #   target-port: 5003
+      #
+      # # Authentication
+      # - protocol: http
+      #   service: blinkbox-node1/auth-ms
+      #   source-port: 4005
+      #   target-port: 4006
+      # - protocol: http
+      #   service: blinkbox-node1/auth-ms-2
+      #   source-port: 4005
+      #   target-port: 4007
+      # - protocol: http
+      #   service: blinkbox-node1/auth-ms-3
+      #   source-port: 4005
+      #   target-port: 4008
+      #
+      # # User
+      # - protocol: http
+      #   service: blinkbox-node1/user-ms
+      #   source-port: 4000
+      #   target-port: 4001
+      # - protocol: http
+      #   service: blinkbox-node1/user-ms-2
+      #   source-port: 4000
+      #   target-port: 4002
+      #
+      # # Notification
+      # - protocol: http
+      #   service: blinkbox-node1/notification-ms
+      #   source-port: 4010
+      #   target-port: 4011
+      # - protocol: http
+      #   service: blinkbox-node1/notification-ms-2
+      #   source-port: 4010
+      #   target-port: 4012
+      #
+      # #File access services
+      # - protocol: http
+      #   service: blinkbox-node1/file-access-ms-2
+      #   source-port: 4025
+      #   target-port: 4026
+      #
+      # - protocol: http
+      #   service: blinkbox-node1/file-access-ms-4
+      #   source-port: 4025
+      #   target-port: 4027
+      #
+      # # Upload Services
+      # - source_port: 4015
+      #   target_port: 4016
+      #   service: blinkbox-node1/upload-ms-2
+      #   protocol: http
+      #
+      # - source_port: 4015
+      #   target_port: 4017
+      #   service: blinkbox-node1/upload-ms-4
+      #   protocol: http
+      #
+      # # Delete Services
+      # - source_port: 4030
+      #   target_port: 4031
+      #   service: blinkbox-node1/delete-ms-2
+      #   protocol: http
+      #
+      # - source_port: 4030
+      #   target_port: 4032
+      #   service: blinkbox-node1/delete-ms-4
+      #   protocol: http
+      #
+      # # Update Services
+      # - source_port: 4020
+      #   target_port: 4021
+      #   service: blinkbox-node1/update-ms-2
+      #   protocol: http
+      #
+      # - source_port: 4020
+      #   target_port: 4022
+      #   service: blinkbox-node1/update-ms-4
+      #   protocol: http
+    # health-check:
+    #   response-timeout: 2000
+    #   healthy-threshold: 2
+    #   port: 42
+    #   unhealthy-threshold: 3
+    #   interval: 2000
