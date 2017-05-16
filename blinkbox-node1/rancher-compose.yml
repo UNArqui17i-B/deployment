@@ -1,13 +1,16 @@
 version: '2'
 services:
-  blinkbox-lb:
-    scale: 1
-    lb-config:
-      port-rules:
-      # Front end
-      - service: blinkbox-node1/frontend-ms-3
-        source-port: 80
-        target-port: 85
+  auth-ms:
+    scale: 4
+
+  # blinkbox-lb:
+  #   scale: 1
+  #   lb-config:
+  #     port-rules:
+  #     # Front end
+  #     - service: blinkbox-node1/frontend-ms-3
+  #       source-port: 80
+  #       target-port: 85
       # - protocol: http
       #   service: blinkbox-node1/frontend-ms-2
       #   source-port: 80
@@ -108,9 +111,9 @@ services:
       #   target_port: 4022
       #   service: blinkbox-node1/update-ms-4
       #   protocol: http
-    health-check:
-      response-timeout: 2000
-      healthy-threshold: 2
-      port: 42
-      unhealthy-threshold: 3
-      interval: 2000
+    # health-check:
+    #   response-timeout: 2000
+    #   healthy-threshold: 2
+    #   port: 42
+    #   unhealthy-threshold: 3
+    #   interval: 2000
