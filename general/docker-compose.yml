@@ -7,6 +7,9 @@ services:
       driver: 'none'
     ports:
       - '3000:5984'
+    labels:
+      io.rancher.scheduler.affinity:host_label: user_db=true
+
 
   files-db:
     image: klaemo/couchdb:2.0-single
@@ -15,6 +18,9 @@ services:
       driver: 'none'
     ports:
       - '3010:5984'
+    labels:
+      - io.rancher.scheduler.affinity:host_label: file_db=true
+
 
   user-ms:
     image: blinkbox/user-crud
@@ -25,6 +31,9 @@ services:
       - '4000:4000'
     links:
       - users-db
+    labels:
+      - io.rancher.scheduler.affinity:host_label: user=true
+
 
   auth-ms:
     image: blinkbox/authentication
@@ -36,6 +45,8 @@ services:
       - '4005:4005'
     links:
       - users-db
+    labels:
+      - io.rancher.scheduler.affinity:host_label: main=true
 
   notification-ms:
     image: blinkbox/notification
@@ -47,6 +58,9 @@ services:
       PORT: '587'
     ports:
       - '4010:4010'
+    labels:
+      -io.rancher.scheduler.affinity:host_label: user=true
+
 
   update-ms:
     image: blinkbox/update
@@ -61,6 +75,9 @@ services:
       - '4020:4020'
     links:
       - files-db
+    labels:
+      - io.rancher.scheduler.affinity:host_label: file=true
+
 
   delete-ms:
     image: blinkbox/delete
@@ -74,6 +91,9 @@ services:
       - '4030:4030'
     links:
       - files-db
+    labels:
+      - io.rancher.scheduler.affinity:host_label: file=true
+
 
   upload-ms:
     image: blinkbox/upload
@@ -86,6 +106,9 @@ services:
       - '4015:4015'
     links:
       - files-db
+    labels:
+      - io.rancher.scheduler.affinity:host_label: file=true
+
 
   file-access-ms:
     image: blinkbox/fileaccess
@@ -99,6 +122,9 @@ services:
       HOST_URL: '0.0.0.0'
     links:
       - files-db
+    labels:
+      - io.rancher.scheduler.affinity:host_label: file=true
+
 
   api-gateway:
     image: blinkbox/api-gateway
@@ -127,6 +153,9 @@ services:
       - delete-ms
       - upload-ms
       - file-access-ms
+    labels:
+      - io.rancher.scheduler.affinity:host_label: main=true
+
 
   frontend-ms:
     image: blinkbox/frontend
@@ -143,6 +172,9 @@ services:
       - file-access-ms
       - upload-ms
       - api-gateway
+    labels:
+      - io.rancher.scheduler.affinity:host_label: main=true
+
 
   server-lb:
     image: rancher/lb-service-haproxy:v0.4.2
@@ -154,3 +186,6 @@ services:
     links:
       - frontend-ms
       - api-gateway
+    labels:
+      - io.rancher.scheduler.affinity:host_label: balancer=true
+
