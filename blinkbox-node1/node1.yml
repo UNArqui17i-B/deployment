@@ -209,7 +209,7 @@ services:
        io.rancher.container.agent.role: environment
        io.rancher.container.create-agent: 'true'
     links:
-      - frontend-ms
+      - frontend-ms-3
       # - frontend-ms-2
       # - frontend-ms-3
       # - api-gateway
