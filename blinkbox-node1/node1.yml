@@ -61,12 +61,19 @@ services:
 
   # load balancer
   server-lb:
-    image: rancher/lb-service-haproxy:v0.4.2
+    build: .
     ports:
-      - '80:80'
-    labels:
-      io.rancher.container.agent.role: environmentAdmin
-      io.rancher.container.create-agent: 'true'
+      - '4005:4005'
+      - '5000:5000'
+      - '5010:5010'
+      - '4000:4000'
+      - '4010:4010'
+      - '4020:4020'
+      - '4030:4030'
+      - '4015:4015'
+      - '4025:4025'
+      - '3000:3000'
+      - '3010:3010'
     links:
       - frontend-ms
       - api-gateway
