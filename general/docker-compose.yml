@@ -6,6 +6,8 @@ services:
       - '80:80'
     labels:
       io.rancher.scheduler.affinity:host_label: balancer=balancer
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.agent.role: environmentAdmin
     # labels:
     #   io.rancher.container.agent.role: environmentAdmin
     #   io.rancher.container.create-agent: 'true'
