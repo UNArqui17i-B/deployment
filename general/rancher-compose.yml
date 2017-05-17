@@ -1,9 +1,11 @@
 server-lb:
   scale: 1
   lb-config:
+    certs: []
     port-rules:
-    - service: frontend-ms
+    - priority: 1
       protocol: http
+      service: frontend-ms
       source-port: 80
       target-port: 5010
   health-check:
