@@ -1,5 +1,20 @@
 version: '2'
 services:
+
+  server-lb:
+    image: rancher/lb-service-haproxy:v0.7.2
+    ports:
+      - '80:80'
+    labels:
+      io.rancher.scheduler.affinity:host_label: balancer=balancer
+    # labels:
+    #   io.rancher.container.agent.role: environmentAdmin
+    #   io.rancher.container.create-agent: 'true'
+    # links:
+    #   - frontend-ms
+    #   - api-gateway
+    #
+
   users-db:
     image: klaemo/couchdb:2.0-single
     restart: always
@@ -172,17 +187,3 @@ services:
       - api-gateway
     labels:
       io.rancher.scheduler.affinity:host_label: main=main
-
-
-  server-lb:
-    image: rancher/lb-service-haproxy:v0.7.2
-    ports:
-      - '80:80'
-    # labels:
-    #   io.rancher.container.agent.role: environmentAdmin
-    #   io.rancher.container.create-agent: 'true'
-    # links:
-    #   - frontend-ms
-    #   - api-gateway
-    # labels:
-    #   io.rancher.scheduler.affinity:host_label: balancer=balancer
