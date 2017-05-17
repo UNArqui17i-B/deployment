@@ -177,12 +177,12 @@ services:
   server-lb:
     image: rancher/lb-service-haproxy:v0.7.2
     ports:
-      - '80:80'
-    labels:
-      io.rancher.container.agent.role: environmentAdmin
-      io.rancher.container.create-agent: 'true'
-    links:
-      - frontend-ms
-      - api-gateway
-    labels:
-      io.rancher.scheduler.affinity:host_label: balancer=balancer
+      - 80
+    # labels:
+    #   io.rancher.container.agent.role: environmentAdmin
+    #   io.rancher.container.create-agent: 'true'
+    # links:
+    #   - frontend-ms
+    #   - api-gateway
+    # labels:
+    #   io.rancher.scheduler.affinity:host_label: balancer=balancer
