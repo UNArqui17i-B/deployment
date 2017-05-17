@@ -17,7 +17,7 @@ services:
       DB_URL: '10.0.0.2'
       JWT_SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
     ports:
-      - '4005:4005'
+      - '4007:4007'
 
   api-gateway:
     image: blinkbox/api-gateway

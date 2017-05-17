@@ -5,7 +5,7 @@
 main:
   authentication-ms: 4005
   api-gateway-ms: 5000
-  front-ms: 80
+  front-ms: 5010
 user:
   user-ms: 4000
   notification-ms: 4010
