@@ -3,6 +3,7 @@ server-lb:
   lb-config:
     port-rules:
     - service: frontend-ms
+      protocol: http
       source-port: 80
       target-port: 5010
   health-check:
