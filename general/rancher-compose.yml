@@ -1,18 +1,18 @@
 server-lb:
   scale: 1
-  lb-config:
+  lb_config:
     certs: []
-    port-rules:
+    port_rules:
     - priority: 1
       protocol: http
       service: frontend-ms
-      source-port: 80
-      target-port: 5010
+      source_port: 80
+      target_port: 5010
   health-check:
-    response-timeout: 2000
-    healthy-threshold: 2
+    response_timeout: 2000
+    healthy_threshold: 2
     port: 42
-    unhealthy-threshold: 3
+    unhealthy_threshold: 3
     interval: 2000
 
 users-db:
