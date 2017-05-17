@@ -8,7 +8,7 @@ services:
     ports:
       - '3000:5984'
     labels:
-      io.rancher.scheduler.affinity:host_label: user_db=true
+      - io.rancher.scheduler.affinity:host_label: user_db=true
 
 
   files-db:
@@ -59,7 +59,7 @@ services:
     ports:
       - '4010:4010'
     labels:
-      -io.rancher.scheduler.affinity:host_label: user=true
+      - io.rancher.scheduler.affinity:host_label: user=true
 
 
   update-ms:
