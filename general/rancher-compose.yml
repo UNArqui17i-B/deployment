@@ -1,20 +1,3 @@
-server-lb:
-  scale: 1
-  lb_config:
-    certs: []
-    port_rules:
-    - priority: 1
-      protocol: http
-      service: frontend-ms
-      source_port: 80
-      target_port: 5010
-  health_check:
-    response_timeout: 2000
-    healthy_threshold: 2
-    port: 42
-    unhealthy_threshold: 3
-    interval: 2000
-
 users-db:
   scale: 3
 
@@ -47,3 +30,20 @@ api-gateway:
 
 frontend-ms:
   scale: 3
+
+server-lb:
+  scale: 1
+  lb_config:
+    certs: []
+    port_rules:
+    - priority: 1
+      protocol: http
+      service: frontend-ms
+      source_port: 80
+      target_port: 5010
+  health_check:
+    response_timeout: 2000
+    healthy_threshold: 2
+    port: 42
+    unhealthy_threshold: 3
+    interval: 2000
