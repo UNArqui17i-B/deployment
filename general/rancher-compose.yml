@@ -8,7 +8,7 @@ server-lb:
       service: frontend-ms
       source_port: 80
       target_port: 5010
-  health-check:
+  health_check:
     response_timeout: 2000
     healthy_threshold: 2
     port: 42
