@@ -175,7 +175,7 @@ services:
 
 
   server-lb:
-    image: rancher/lb-service-haproxy
+    image: rancher/lb-service-haproxy:v0.7.2
     ports:
       - '80:80'
     labels:
