@@ -8,7 +8,7 @@ services:
     ports:
       - '3000:5984'
     labels:
-      io.rancher.scheduler.affinity:host_label: "user_db=true"
+      io.rancher.scheduler.affinity:host_label: user_db=true
 
 
   files-db:
@@ -19,7 +19,7 @@ services:
     ports:
       - '3010:5984'
     labels:
-      - io.rancher.scheduler.affinity:host_label: "file_db=true"
+      - io.rancher.scheduler.affinity:host_label: file_db=true
 
 
   user-ms:
@@ -32,7 +32,7 @@ services:
     links:
       - users-db
     labels:
-      - io.rancher.scheduler.affinity:host_label: "user=true"
+      - io.rancher.scheduler.affinity:host_label: user=true
 
 
   auth-ms:
@@ -46,7 +46,7 @@ services:
     links:
       - users-db
     labels:
-      - io.rancher.scheduler.affinity:host_label: "main=true"
+      - io.rancher.scheduler.affinity:host_label: main=true
 
   notification-ms:
     image: blinkbox/notification
@@ -59,7 +59,7 @@ services:
     ports:
       - '4010:4010'
     labels:
-      -io.rancher.scheduler.affinity:host_label: "user=true"
+      -io.rancher.scheduler.affinity:host_label: user=true
 
 
   update-ms:
@@ -76,7 +76,7 @@ services:
     links:
       - files-db
     labels:
-      - io.rancher.scheduler.affinity:host_label: "file=true"
+      - io.rancher.scheduler.affinity:host_label: file=true
 
 
   delete-ms:
@@ -92,7 +92,7 @@ services:
     links:
       - files-db
     labels:
-      - io.rancher.scheduler.affinity:host_label: "file=true"
+      - io.rancher.scheduler.affinity:host_label: file=true
 
 
   upload-ms:
@@ -107,7 +107,7 @@ services:
     links:
       - files-db
     labels:
-      - io.rancher.scheduler.affinity:host_label: "file=true"
+      - io.rancher.scheduler.affinity:host_label: file=true
 
 
   file-access-ms:
@@ -123,7 +123,7 @@ services:
     links:
       - files-db
     labels:
-      - io.rancher.scheduler.affinity:host_label: "file=true"
+      - io.rancher.scheduler.affinity:host_label: file=true
 
 
   api-gateway:
@@ -154,7 +154,7 @@ services:
       - upload-ms
       - file-access-ms
     labels:
-      - io.rancher.scheduler.affinity:host_label: "main=true"
+      - io.rancher.scheduler.affinity:host_label: main=true
 
 
   frontend-ms:
@@ -173,7 +173,7 @@ services:
       - upload-ms
       - api-gateway
     labels:
-      - io.rancher.scheduler.affinity:host_label: "main=true"
+      - io.rancher.scheduler.affinity:host_label: main=true
 
 
   server-lb:
@@ -187,4 +187,4 @@ services:
       - frontend-ms
       - api-gateway
     labels:
-      - io.rancher.scheduler.affinity:host_label: "balancer=true"
+      - io.rancher.scheduler.affinity:host_label: balancer=true
