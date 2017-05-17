@@ -1,3 +1,17 @@
+server-lb:
+  scale: 1
+  lb-config:
+    port-rules:
+    - service: frontend-ms
+      source-port: 80
+      target-port: 5010
+  health-check:
+    response-timeout: 2000
+    healthy-threshold: 2
+    port: 42
+    unhealthy-threshold: 3
+    interval: 2000
+
 users-db:
   scale: 3
 
@@ -30,17 +44,3 @@ api-gateway:
 
 frontend-ms:
   scale: 3
-
-server-lb:
-  scale: 1
-  lb-config:
-    port-rules:
-    - service: frontend-ms
-      source-port: 80
-      target-port: 5010
-  health-check:
-    response-timeout: 2000
-    healthy-threshold: 2
-    port: 42
-    unhealthy-threshold: 3
-    interval: 2000
