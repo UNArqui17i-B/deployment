@@ -19,10 +19,10 @@ file-db: 3010
 ```
 
 ## Shared machines 
-| Node1     | Node2            | Node3            | Node4   |
-| --------- | ---------------- | ---------------- | ------- |
-| main      | main             | main             | user    | 
-| server-lb | file             | user             | file    |
-| user-db   | file-db - master | user-db - master | file-db |
+| Node1     | Node2   | Node3    | Node4   |
+| --------- | ------- | -------- | ------- |
+| main      | main    | main     | user    | 
+| server-lb | file    | user     | file    |
+| user-db   | file-db | user-db  | file-db |
 
 `*` In 6th delivery
