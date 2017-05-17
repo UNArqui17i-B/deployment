@@ -40,7 +40,7 @@ server-lb:
       protocol: http
       service: frontend-ms
       source-port: 80
-      target-port: 85
+      target-port: 5010
   health-check:
     response-timeout: 2000
     healthy-threshold: 2

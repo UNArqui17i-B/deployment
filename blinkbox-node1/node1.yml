@@ -1,55 +1,191 @@
-version: '2'
-services:
-  ########
-  #Node 1
-  ########
-  auth-ms:
-    image: blinkbox/authentication
-    environment:
-      DB-PORT: '5984'
-      DB-URL: 'users-db-m'
-      JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
-    ports:
-      - '4006:4006'
-    links:
-      - users-db-m
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node1
-
-  api-gateway:
-    image: blinkbox/api-gateway
-    environment:
-      USER-PORT: '4000'
-      USER-HOST: 'user-ms'
-      AUTH-PORT: '4005'
-      AUTH-HOST: 'auth-ms'
-      NOTIFICATION-PORT: '4010'
-      NOTIFICATION-HOST: 'notification-ms'
-      UPDATE-PORT: labels:'4020'
-      UPDATE-HOST: 'update-ms'
-      DELETE-PORT: '4030'
-      DELETE-HOST: 'delete-ms'
-      UPLOAD-PORT: '4015'
-      UPLOAD-HOST: 'upload-ms'
-      ACCESS-PORT: '4025'
-      ACCESS-HOST: 'file-access-ms'
-    ports:
-      - '5001:5001'
-    links:
-      - blinkbox-lb
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node1
-  frontend-ms:
-    image: blinkbox/frontend
-    ports:
-      - "85:85"
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node1
-
-  blinkbox-lb:
-    image: rancher/lb-service-haproxy:v0.4.2
-    ports:
-      - 80
+ ########
+ #Node 1
+ ########
+ auth-ms:
+   image: blinkbox/authentication
+   environment:
+     DB-PORT: '5984'
+     DB-URL: 'users-db-m'
+     JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
+   ports:
+     - '4006:4006'
+  #  links:
+  #    - users-db-m
+   labels:
+     io.rancher.scheduler.affinity:host_label: main=true
+#
+#  api-gateway:
+#    image: blinkbox/api-gateway
+#    environment:
+#      USER-PORT: '4000'
+#      USER-HOST: 'user-ms'
+#      AUTH-PORT: '4005'
+#      AUTH-HOST: 'auth-ms'
+#      NOTIFICATION-PORT: '4010'
+#      NOTIFICATION-HOST: 'notification-ms'
+#      UPDATE-PORT: labels:'4020'
+#      UPDATE-HOST: 'update-ms'
+#      DELETE-PORT: '4030'
+#      DELETE-HOST: 'delete-ms'
+#      UPLOAD-PORT: '4015'
+#      UPLOAD-HOST: 'upload-ms'
+#      ACCESS-PORT: '4025'
+#      ACCESS-HOST: 'file-access-ms'
+#    ports:
+#      - '5001:5001'
+#    links:
+#      - blinkbox-lb
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node1
+#  frontend-ms:
+#    image: blinkbox/frontend
+#    ports:
+#      - "85:85"
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node1
+#
+#
+#
+#  users-db-m:
+#    image: klaemo/couchdb:2.0-single
+#    restart: always
+#    logging:
+#      driver: 'none'
+#    ports:
+#      - '3000:5984'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node1
+#
+#  files-db-m:
+#    image: klaemo/couchdb:2.0-single
+#    restart: always
+#    logging:
+#      driver: 'none'
+#    ports:
+#      - '3010:5984'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node1
+#
+#  ########
+#  #Node 2
+#  ########
+#  auth-ms-2:
+#    image: blinkbox/authentication
+#    environment:
+#      DB-PORT: '5984'
+#      DB-URL: 'users-db-m'
+#      JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
+#    ports:
+#      - '4007:4007'
+#    links:
+#      - users-db-m
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#  update-ms-2:
+#    image: blinkbox/update
+#    environment:
+#      DB_PORT: '5984'
+#      DB_URL: 'files-db-1'
+#      SECRET_KEY_BASE: '88e17a0d8bc9aaff8b23b3a64921da46059b175d73966151dd10029934cde9d4fa645c55a2a8e71e4a23778e64ce408caf7c4e5ca7c163d3785c9363f1153e4d'
+#    command: bundle exec rails s -e production -p 4021 -b '0.0.0.0'
+#    ports:
+#      - '4021:4021'
+#    links:
+#      - files-db-1
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#
+#  api-gateway-2:
+#    image: blinkbox/api-gateway
+#    environment:
+#      USER-PORT: '4000'
+#      USER-HOST: 'user-ms'
+#      AUTH-PORT: '4005'
+#      AUTH-HOST: 'auth-ms'
+#      NOTIFICATION-PORT: '4010'
+#      NOTIFICATION-HOST: 'notification-ms'
+#      UPDATE-PORT: labels:'4020'
+#      UPDATE-HOST: 'update-ms'
+#      DELETE-PORT: '4030'
+#      DELETE-HOST: 'delete-ms'
+#      UPLOAD-PORT: '4015'
+#      UPLOAD-HOST: 'upload-ms'
+#      ACCESS-PORT: '4025'
+#      ACCESS-HOST: 'file-access-ms'
+#    ports:
+#      - '5002:5002'
+#    links:
+#      - blinkbox-lb
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#  frontend-ms-2:
+#    image: blinkbox/frontend
+#    ports:
+#      - "86:86"
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#  delete-ms-2:
+#    image: blinkbox/delete
+#    environment:
+#      HOST_PORT: '4031'
+#      HOST_URL: '0.0.0.0'
+#      DB_URL: 'files-db-m'
+#      DB_PORT: '3010'
+#      DB_NAME: 'blinkbox_files'
+#    ports:
+#      - '4031:4031'
+#    links:
+#      - files-db-m
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#  upload-ms-2:
+#    image: blinkbox/upload
+#    environment:
+#      DB_PORT: '5984'
+#      DB_URL: 'files-db-m'
+#    ports:
+#      - '4016:4016'
+#    links:
+#      - files-db-m
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#  file-access-ms-2:
+#    image: blinkbox/fileaccess
+#    ports:
+#      - '4026:4026'
+#    environment:
+#      DB_NAME: 'blinkbox_files'
+#      DB_URL: 'files-db-1'
+#      DB_PORT: '5984'
+#      HOST_PORT: '4026'
+#      HOST_URL: '0.0.0.0'
+#    links:
+#      - files-db-1
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#
+#  files-db-1:
+#    image: klaemo/couchdb:2.0-single
+#    restart: always
+#    logging:
+#      driver: 'none'
+#    ports:
+#      - '3010:5984'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node2
+#  #
+# version: '2'
+# services:
+#   blinkbox-lb:
+#     image: rancher/lb-service-haproxy:v0.4.2
+#     ports:
+#       - "80:80"
       # - "80:87"
       # - "5000:5001"
       # - "5000:5002"
@@ -69,11 +205,12 @@ services:
       # - "4030:4032"
       # - "4020:4021"
       # - "4020:4022"
-    #labels:
-      # io.rancher.container.agent.role: environment
-      # io.rancher.container.create-agent: 'true'
-    #links:
-      # - frontend-ms
+    # labels:
+    #    io.rancher.container.agent.role: environment
+    #    io.rancher.container.create-agent: 'true'
+    #    io.rancher.scheduler.affinity:host_label: host_label=node3
+    # links:
+    #   - frontend-ms-3
       # - frontend-ms-2
       # - frontend-ms-3
       # - api-gateway
@@ -95,325 +232,190 @@ services:
       # - update-ms-2
       # - update-ms-4
 
-
-  users-db-m:
-    image: klaemo/couchdb:2.0-single
-    restart: always
-    logging:
-      driver: 'none'
-    ports:
-      - '3000:5984'
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node1
-
-  files-db-m:
-    image: klaemo/couchdb:2.0-single
-    restart: always
-    logging:
-      driver: 'none'
-    ports:
-      - '3010:5984'
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node1
-
-  ########
-  #Node 2
-  ########
-  auth-ms-2:
-    image: blinkbox/authentication
-    environment:
-      DB-PORT: '5984'
-      DB-URL: 'users-db-m'
-      JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
-    ports:
-      - '4007:4007'
-    links:
-      - users-db-m
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-  update-ms-2:
-    image: blinkbox/update
-    environment:
-      DB_PORT: '5984'
-      DB_URL: 'files-db-1'
-      SECRET_KEY_BASE: '88e17a0d8bc9aaff8b23b3a64921da46059b175d73966151dd10029934cde9d4fa645c55a2a8e71e4a23778e64ce408caf7c4e5ca7c163d3785c9363f1153e4d'
-    command: bundle exec rails s -e production -p 4021 -b '0.0.0.0'
-    ports:
-      - '4021:4021'
-    links:
-      - files-db-1
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-
-  api-gateway-2:
-    image: blinkbox/api-gateway
-    environment:
-      USER-PORT: '4000'
-      USER-HOST: 'user-ms'
-      AUTH-PORT: '4005'
-      AUTH-HOST: 'auth-ms'
-      NOTIFICATION-PORT: '4010'
-      NOTIFICATION-HOST: 'notification-ms'
-      UPDATE-PORT: labels:'4020'
-      UPDATE-HOST: 'update-ms'
-      DELETE-PORT: '4030'
-      DELETE-HOST: 'delete-ms'
-      UPLOAD-PORT: '4015'
-      UPLOAD-HOST: 'upload-ms'
-      ACCESS-PORT: '4025'
-      ACCESS-HOST: 'file-access-ms'
-    ports:
-      - '5002:5002'
-    links:
-      - blinkbox-lb
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-  frontend-ms-2:
-    image: blinkbox/frontend
-    ports:
-      - "86:86"
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-  delete-ms-2:
-    image: blinkbox/delete
-    environment:
-      HOST_PORT: '4031'
-      HOST_URL: '0.0.0.0'
-      DB_URL: 'files-db-m'
-      DB_PORT: '3010'
-      DB_NAME: 'blinkbox_files'
-    ports:
-      - '4031:4031'
-    links:
-      - files-db-m
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-  upload-ms-2:
-    image: blinkbox/upload
-    environment:
-      DB_PORT: '5984'
-      DB_URL: 'files-db-m'
-    ports:
-      - '4016:4016'
-    links:
-      - files-db-m
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-  file-access-ms-2:
-    image: blinkbox/fileaccess
-    ports:
-      - '4026:4026'
-    environment:
-      DB_NAME: 'blinkbox_files'
-      DB_URL: 'files-db-1'
-      DB_PORT: '5984'
-      HOST_PORT: '4026'
-      HOST_URL: '0.0.0.0'
-    links:
-      - files-db-1
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-
-  files-db-1:
-    image: klaemo/couchdb:2.0-single
-    restart: always
-    logging:
-      driver: 'none'
-    ports:
-      - '3010:5984'
-    labels:
-      io.rancher.scheduler.affinity:host_label: host_label=node2
-  #
-  # ########
-  # #Node 3
-  # ########
-  # auth-ms-3:
-  #   image: blinkbox/authentication
-  #   environment:
-  #     DB-PORT: '5984'
-  #     DB-URL: 'users-db-m'
-  #     JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
-  #   ports:
-  #     - '4008:4008'
-  #   links:
-  #     - users-db-m
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node3
-  #
-  # api-gateway-3:
-  #   image: blinkbox/api-gateway
-  #   environment:
-  #     USER-PORT: '4000'
-  #     USER-HOST: 'user-ms'
-  #     AUTH-PORT: '4005'
-  #     AUTH-HOST: 'auth-ms'
-  #     NOTIFICATION-PORT: '4010'
-  #     NOTIFICATION-HOST: 'notification-ms'
-  #     UPDATE-PORT: labels:'4020'
-  #     UPDATE-HOST: 'update-ms'
-  #     DELETE-PORT: '4030'
-  #     DELETE-HOST: 'delete-ms'
-  #     UPLOAD-PORT: '4015'
-  #     UPLOAD-HOST: 'upload-ms'
-  #     ACCESS-PORT: '4025'
-  #     ACCESS-HOST: 'file-access-ms'
-  #   ports:
-  #     - '5002:5002'
-  #   links:
-  #     - blinkbox-lb
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node3
-  # frontend-ms-3:
-  #   image: blinkbox/frontend
-  #   ports:
-  #     - "87:87"
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node3
-  #
-  # user-ms:
-  #   image: blinkbox/user-crud
-  #   environment:
-  #     DB_PORT: '5984'
-  #     DB_URL: 'users-db-m'
-  #   ports:
-  #     - '4001:4001'
-  #   links:
-  #     - users-db-m
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node3
-  #
-  # notification-ms:
-  #   image: blinkbox/notification
-  #   environment:
-  #     NAME: "Blinkbox Project"
-  #     USERNAME: "blinkboxunal@gmail.com"
-  #     PASSWORD: "bl1nkb0x"
-  #     EMAIL_SERVER: "smtp.gmail.com"
-  #     PORT: '587'
-  #   ports:
-  #     - '4011:4011'
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node3
-  #
-  #
-  # users-db-1:
-  #   image: klaemo/couchdb:2.0-single
-  #   restart: always
-  #   logging:
-  #     driver: 'none'
-  #   ports:
-  #     - '3000:5984'
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node3
-  #
-  #
-  # ########
-  # #Node 4
-  # ########
-  # user-ms-2:
-  #   image: blinkbox/user-crud
-  #   environment:
-  #     DB_PORT: '5984'
-  #     DB_URL: 'users-db-m'
-  #   ports:
-  #     - '4002:4002'
-  #   links:
-  #     - users-db-m
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  # update-ms-4:
-  #   image: blinkbox/update
-  #   environment:
-  #     DB_PORT: '5984'
-  #     DB_URL: 'files-db-2'
-  #     SECRET_KEY_BASE: '88e17a0d8bc9aaff8b23b3a64921da46059b175d73966151dd10029934cde9d4fa645c55a2a8e71e4a23778e64ce408caf7c4e5ca7c163d3785c9363f1153e4d'
-  #   command: bundle exec rails s -e production -p 4022 -b '0.0.0.0'
-  #   ports:
-  #     - '4022:4022'
-  #   links:
-  #     - files-db-2
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  # notification-ms-2:
-  #   image: blinkbox/notification
-  #   environment:
-  #     NAME: "Blinkbox Project"
-  #     USERNAME: "blinkboxunal@gmail.com"
-  #     PASSWORD: "bl1nkb0x"
-  #     EMAIL_SERVER: "smtp.gmail.com"
-  #     PORT: '587'
-  #   ports:
-  #     - '4012:4012'
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  #
-  # delete-ms-4:
-  #   image: blinkbox/delete
-  #   environment:
-  #     HOST_PORT: '4032'
-  #     HOST_URL: '0.0.0.0'
-  #     DB_URL: 'files-db-m'
-  #     DB_PORT: '3010'
-  #     DB_NAME: 'blinkbox_files'
-  #   ports:
-  #     - '4032:4032'
-  #   links:
-  #     - files-db-m
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  # upload-ms-4:
-  #   image: blinkbox/upload
-  #   environment:
-  #     DB_PORT: '5984'
-  #     DB_URL: 'files-db-m'
-  #   ports:
-  #     - '4017:4017'
-  #   links:
-  #     - files-db-m
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  # file-access-ms-4:
-  #   image: blinkbox/fileaccess
-  #   ports:
-  #     - '4027:4027'
-  #   environment:
-  #     DB_NAME: 'blinkbox_files'
-  #     DB_URL: 'files-db-m'
-  #     DB_PORT: '5984'
-  #     HOST_PORT: '4027'
-  #     HOST_URL: '0.0.0.0'
-  #   links:
-  #     - files-db-m
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  # users-db-2:
-  #   image: klaemo/couchdb:2.0-single
-  #   restart: always
-  #   logging:
-  #     driver: 'none'
-  #   ports:
-  #     - '3000:5984'
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
-  #
-  # files-db-2:
-  #   image: klaemo/couchdb:2.0-single
-  #   restart: always
-  #   logging:
-  #     driver: 'none'
-  #   ports:
-  #     - '3010:5984'
-  #   labels:
-  #     io.rancher.scheduler.affinity:host_label: host_label=node4
+# ########
+# #Node 3
+# ########
+#   auth-ms-3:
+#    image: blinkbox/authentication
+#    environment:
+#      DB-PORT: '5984'
+#      DB-URL: 'users-db-1'
+#      JWT-SECRET: 'ec6607e21b57ac2ccc5836754893ed33'
+#    ports:
+#      - '4008:4008'
+#    links:
+#      - users-db-1
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node3
+#
+#   api-gateway-3:
+#    image: blinkbox/api-gateway
+#    environment:
+#      USER-PORT: '4000'
+#      USER-HOST: 'user-ms'
+#      AUTH-PORT: '4005'
+#      AUTH-HOST: 'auth-ms'
+#      NOTIFICATION-PORT: '4010'
+#      NOTIFICATION-HOST: 'notification-ms'
+#      UPDATE-PORT: labels:'4020'
+#      UPDATE-HOST: 'update-ms'
+#      DELETE-PORT: '4030'
+#      DELETE-HOST: 'delete-ms'
+#      UPLOAD-PORT: '4015'
+#      UPLOAD-HOST: 'upload-ms'
+#      ACCESS-PORT: '4025'
+#      ACCESS-HOST: 'file-access-ms'
+#    ports:
+#      - '5002:5002'
+#    links:
+#      - blinkbox-lb
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node3
+#   frontend-ms-3:
+#    image: blinkbox/frontend
+#    ports:
+#      - "87:87"
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node3
+#
+#   user-ms:
+#    image: blinkbox/user-crud
+#    environment:
+#      DB_PORT: '5984'
+#      DB_URL: 'users-db-1'
+#    ports:
+#      - '4001:4001'
+#    links:
+#      - users-db-1
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node3
+#
+#   notification-ms:
+#    image: blinkbox/notification
+#    environment:
+#      NAME: "Blinkbox Project"
+#      USERNAME: "blinkboxunal@gmail.com"
+#      PASSWORD: "bl1nkb0x"
+#      EMAIL_SERVER: "smtp.gmail.com"
+#      PORT: '587'
+#    ports:
+#      - '4011:4011'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node3
+#
+#
+#   users-db-1:
+#    image: klaemo/couchdb:2.0-single
+#    restart: always
+#    logging:
+#      driver: 'none'
+#    ports:
+#      - '3000:5984'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node3
+#
+#
+#   ########
+#   #Node 4
+#   ########
+#   user-ms-2:
+#    image: blinkbox/user-crud
+#    environment:
+#      DB_PORT: '5984'
+#      DB_URL: 'users-db-1'
+#    ports:
+#      - '4002:4002'
+#    links:
+#      - users-db-1
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#   update-ms-4:
+#    image: blinkbox/update
+#    environment:
+#      DB_PORT: '5984'
+#      DB_URL: 'files-db-2'
+#      SECRET_KEY_BASE: '88e17a0d8bc9aaff8b23b3a64921da46059b175d73966151dd10029934cde9d4fa645c55a2a8e71e4a23778e64ce408caf7c4e5ca7c163d3785c9363f1153e4d'
+#    command: bundle exec rails s -e production -p 4022 -b '0.0.0.0'
+#    ports:
+#      - '4022:4022'
+#    links:
+#      - files-db-2
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#   notification-ms-2:
+#    image: blinkbox/notification
+#    environment:
+#      NAME: "Blinkbox Project"
+#      USERNAME: "blinkboxunal@gmail.com"
+#      PASSWORD: "bl1nkb0x"
+#      EMAIL_SERVER: "smtp.gmail.com"
+#      PORT: '587'
+#    ports:
+#      - '4012:4012'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#
+#   delete-ms-4:
+#    image: blinkbox/delete
+#    environment:
+#      HOST_PORT: '4032'
+#      HOST_URL: '0.0.0.0'
+#      DB_URL: 'files-db-2'
+#      DB_PORT: '3010'
+#      DB_NAME: 'blinkbox_files'
+#    ports:
+#      - '4032:4032'
+#    links:
+#      - files-db-2
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#   upload-ms-4:
+#    image: blinkbox/upload
+#    environment:
+#      DB_PORT: '5984'
+#      DB_URL: 'files-db-2'
+#    ports:
+#      - '4017:4017'
+#    links:
+#      - files-db-2
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#   file-access-ms-4:
+#    image: blinkbox/fileaccess
+#    ports:
+#      - '4027:4027'
+#    environment:
+#      DB_NAME: 'blinkbox_files'
+#      DB_URL: 'files-db-2'
+#      DB_PORT: '5984'
+#      HOST_PORT: '4027'
+#      HOST_URL: '0.0.0.0'
+#    links:
+#      - files-db-2
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#   users-db-2:
+#    image: klaemo/couchdb:2.0-single
+#    restart: always
+#    logging:
+#      driver: 'none'
+#    ports:
+#      - '3000:5984'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
+#
+#   files-db-2:
+#    image: klaemo/couchdb:2.0-single
+#    restart: always
+#    logging:
+#      driver: 'none'
+#    ports:
+#      - '3010:5984'
+#    labels:
+#      io.rancher.scheduler.affinity:host_label: host_label=node4
