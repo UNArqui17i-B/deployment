@@ -94,3 +94,21 @@ services:
       - "4015:4015"
     links:
       - files_db
+
+  frontend-ms:
+    image: blinkbox/frontend
+    environment:
+      BACK_PORT: "5000"
+      BACK_URL: "0.0.0.0"
+      HOST_PORT: "5010"
+      HOST_URL: "0.0.0.0"
+      FILE_ACCESS: "0.0.0.0" #Need to be changed, maybe
+      UPLOAD: "0.0.0.0" #Need to be changed, maybe
+    ports:
+      - "5010:5010"
+    links:
+      - file_access_ms
+      - upload_ms
+      - api_gateway
+    labels:
+      io.rancher.scheduler.affinity:host_label: main=main
