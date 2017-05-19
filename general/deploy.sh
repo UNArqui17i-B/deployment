@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 ./../rancher-compose --project-name blinkbox \
-    --url http://10.0.0.4:8080/v1/projects/1a5 \
-    --access-key 220DC56668EF08268E6E \
-    --secret-key oF9wDqENapEJLAxgE4sez5xC91Z6nEvg8pDvLhFh \
+    --url http://192.168.99.100:8080/v1/projects/1a5 \
+    --access-key FFBB37C775D24D87565E \
+    --secret-key XBXMKyKwa7FE9ugmJg1nN2WBV39M3awtRQ5M8o2T \
     -f docker-compose.yml \
     --verbose up \
     -d --force-upgrade \

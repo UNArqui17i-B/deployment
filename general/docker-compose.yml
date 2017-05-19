@@ -159,11 +159,11 @@ services:
     image: blinkbox/frontend
     environment:
       BACK_PORT: "5000"
-      BACK_URL: "192.168.99.102" #Need to be changed, maybe
+      BACK_URL: "192.168.99.101" #Need to be changed, maybe
       HOST_PORT: "5010"
       HOST_URL: "0.0.0.0"
-      FILE_ACCESS: "192.168.99.102" #Need to be changed, maybe
-      UPLOAD: "192.168.99.102" #Need to be changed, maybe
+      FILE_ACCESS: "192.168.99.101" #Need to be changed, maybe
+      UPLOAD: "192.168.99.101" #Need to be changed, maybe
     ports:
       - "5010:5010"
     links:
